@@ -138,8 +138,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				echo "$sql <br/>";
 
 				echo "API: <br/>";
-				$api = "  Request - Array ( [http] => Array ( [method] => POST [header] => Content-type: application/x-www-form-urlencoded[content] => {'user_id':'4','K':12,'account_api_key':'abdRDXE4I6XhRvKbg4S29DR2di97RNOC','account_id':'1'} ) ) <br/>";
-				$api .= "   Response - https://deep-rec.com/api/recommend";
+				$api = "  Request - Array ( [http] => Array ( [method] => POST [header] => Content-type: application/json [content] => {'user_id':'4','K':12,'account_api_key':'abdRDXE4I6XhRvKbg4S29DR2di97RNOC','account_id':'1'} ) ) <br/>";
+				$api .= "   Response - Array
+(
+    [923] => 14.476547
+    [2357] => 14.190623
+    [3711] => 14.069821
+    [1044] => 14.056301
+    [3897] => 14.007052
+    [393] => 13.753808
+    [770] => 13.724399
+    [3788] => 13.689966
+    [823] => 13.688637
+    [3679] => 13.630999
+    [278] => 13.534167
+    [1307] => 13.502385
+)";
 				echo " $api <br/>";
 
 				print("</pre>");

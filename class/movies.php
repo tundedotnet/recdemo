@@ -37,7 +37,7 @@ class Movies
 		$opts = array('http' =>
 		    array(
 		        'method'  => 'POST',
-		        'header'  => 'Content-type: application/x-www-form-urlencoded',
+		        'header'  => 'Content-type: application/json',
 		        'content' => $postdata
 		    )
 		);
@@ -100,7 +100,7 @@ class Movies
 		$opts = array('http' =>
 		    array(
 		        'method'  => 'POST',
-		        'header'  => 'Content-type: application/x-www-form-urlencoded',
+		        'header'  => 'Content-type: application/json',
 		        'content' => $postdata
 		    )
 		);
@@ -232,7 +232,7 @@ class Movies
 		$opts = array('http' =>
 		    array(
 		        'method'  => 'POST',
-		        'header'  => 'Content-type: application/x-www-form-urlencoded',
+		        'header'  => 'Content-type: application/json',
 		        'content' => $postdata
 		    )
 		);
@@ -339,6 +339,8 @@ class Movies
 	{
 		include 'connectDB.php';
 
+		$_SESSION['numberofrating'] = $this->count_rating($conn, $movieid);
+
 		if (isset($_SESSION['accesstag']) AND $_SESSION['accesstag'] == 'OK') {
 			$userid = $_SESSION['userid'];
 			$sql = "SELECT rating FROM ratings WHERE movieid=$movieid AND userid=$userid ORDER BY rid DESC LIMIT 1";
@@ -349,10 +351,6 @@ class Movies
 				$data=mysqli_fetch_assoc($result);
 				$rating = $data['rating'];
 				$_SESSION['last_rating'] = $rating;
-
-				$userid = $_SESSION['userid'];
-				$_SESSION['numberofrating'] = count_rating($conn, $movieid, $userid);
-
 				/*print "<pre>";
 				print($rating);
 				print "</pre>";*/
@@ -360,7 +358,6 @@ class Movies
 			else
 			{
 				$_SESSION['last_rating'] = 'NA';
-				$_SESSION['numberofrating'] = 0;
 			}
 
 		}
@@ -378,8 +375,6 @@ class Movies
 		}
 		else
 			return 0;
-
-
 	}
 
 	function get_categories($conn, $movieid)
@@ -476,14 +471,14 @@ class Movies
 		return $total_records;
 	}
 
-	function count_rating($conn, $movieid, $userid) {
+	function count_rating($conn, $movieid) {
 		
-		$sql = "SELECT COUNT(rating) as total FROM ratings WHERE movieid=$movieid AND userid=$userid";  
+		$sql = "SELECT COUNT(rating) as total FROM ratings WHERE movieid=$movieid";  
 		$result=mysqli_query($conn, $sql);
-		$data=mysqli_fetch_assoc($result);
-
-		if (mysqli_num_rows($data)!=0)
+		
+		if (mysqli_num_rows($result)!=0)
 		{
+			$data=mysqli_fetch_assoc($result);
 			$total_records = $data['total'];
 
 			return $total_records;
@@ -596,7 +591,7 @@ class Movies
 	{
 		include 'connectDB.php';
 
-		$sql = "SELECT movies.movieid as movieid, rtitle, yearreleased, AVG(rating) AS rating FROM movies JOIN ratings ON movies.movieid=ratings.movieid WHERE rtitle LIKE '%$keyword%' GROUP BY movieid ORDER BY rating DESC, rtitle ASC LIMIT $start_from, $limit";
+		$sql = "SELECT movies.movieid as movieid, rtitle, yearreleased, AVG(rating) AS rating FROM movies LEFT JOIN ratings ON movies.movieid=ratings.movieid WHERE rtitle LIKE '%$keyword%' GROUP BY movieid ORDER BY rating DESC, rtitle ASC LIMIT $start_from, $limit";
 
 		$result = $conn->query($sql);
 

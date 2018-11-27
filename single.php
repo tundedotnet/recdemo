@@ -134,15 +134,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			echo "<br/>";
 
 			echo "SQL: <br/>";
-			$sql = "SELECT movies.movieid as movieid, rtitle, yearreleased, genres, AVG(ratings.rating) as rating, description, director, country, language FROM movies JOIN ratings ON movies.movieid=ratings.movieid JOIN movies_info ON movies.movieid=movies_info.movieid WHERE movies.movieid = 'movieid'";
+			$sql = "   SELECT movies.movieid as movieid, rtitle, yearreleased, genres, AVG(ratings.rating) as rating, description, director, country, language FROM movies JOIN ratings ON movies.movieid=ratings.movieid JOIN movies_info ON movies.movieid=movies_info.movieid WHERE movies.movieid = 'movieid'";
 
 			echo "$sql <br/>";
 
 			echo "API: <br/>";
-				$api = "  Request - Array ( [http] => Array ( [method] => POST [header] => Content-type: application/x-www-form-urlencoded [content] => {'user_id':'N9D266D7254B1471FB01CB17D3806FC25','K':11,'account_api_key':'abdRDXE4I6XhRvKbg4S29DR2di97RNOC','account_id':'1','category':[2,3,4]} ) ) <br/>";
-				$api .= "   Response - https://deep-rec.com/api/recommend <br/><br/>";
-				$api .= "   Request (Rating) - Array ( [http] => Array ( [method] => POST [header] => Content-type: application/x-www-form-urlencoded [content] => {'ratings':[{'user_id':'4','item_id':'2899','score':2}],'account_api_key':'abdRDXE4I6XhRvKbg4S29DR2di97RNOC','account_id':'1'} ) ) <br/>";
-				$api .= "   Response (Rating) - https://deep-rec.com/api/rating";
+				$api = "  Request - Array ( [http] => Array ( [method] => POST [header] => Content-type: application/json [content] => {'user_id':'N9D266D7254B1471FB01CB17D3806FC25','K':11,'account_api_key':'abdRDXE4I6XhRvKbg4S29DR2di97RNOC','account_id':'1','category':[2,3,4]} ) ) <br/>";
+				$api .= "   Response - Array
+(
+    [923] => 14.4862385
+    [2357] => 14.208625
+    [3711] => 14.083873
+    [1044] => 14.077532
+    [3897] => 14.015639
+    [393] => 13.766373
+    [770] => 13.73549
+    [823] => 13.702568
+    [3788] => 13.701855
+    [3679] => 13.627493
+    [278] => 13.538572
+) <br/><br/>";
+				$api .= "   Request (Rating) - Array ( [http] => Array ( [method] => POST [header] => Content-type: application/json [content] => {'ratings':[{'user_id':'4','item_id':'8679','score':2}],'account_api_key':'abdRDXE4I6XhRvKbg4S29DR2di97RNOC','account_id':'1'} ) ) <br/>";
+				$api .= "   Response (Rating) - Array
+(
+    [code] => OK
+)";
 				echo " $api <br/>";
 
 
@@ -228,18 +244,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<?php echo str_replace('|', ' | ', $movie['genres']); ?>
 									</p>
 
-
-									<?php if(isset($_SESSION['numberofrating'])) { ?>
-									<p style="margin-bottom: 10px;color:#ff8d1b;">
-										<?php
-											$number = $_SESSION['numberofrating'];
-											if ($number > 1) echo $number . ' users'; else echo '1 user';
-										?>
-										rated this movie
-									</p>
-								<?php } ?>
-
-
 									<p style="margin-bottom: 10px;">
 										<!-- <span style="font-weight: bold;">Average Rating: </span> -->
 										<?php
@@ -251,12 +255,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<!-- <?php // echo round($movie['rating'], 2); ?> -->
 									</p>
 
-									<p style="margin-bottom: 10px; padding-top:10px;">
+									<p style="margin-bottom: 20px; padding-top:10px;">
 										<?php if ($movie['description'] != 'n/A') echo $movie['description']; ?>
 									</p>
 
-									
-									<br/>
 									
 									<p style="margin-bottom: 10px;">
 										<span style="font-weight: bold;">Director: </span>
@@ -277,7 +279,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<span style="font-weight: bold;">Year of Released: </span>
 										<?php if ($movie['yearreleased']!='' AND $movie['yearreleased']!='n/A') echo $movie['yearreleased']; else echo 'N/A'; ?>
 									</p>
-
+									
 									<br/>
 
 								</div>
@@ -290,6 +292,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 										<p style="font-weight: bold; float: left">
 											<ul style="margin-top: -2px; " class="w3l-ratings"> -->
+										<?php if(isset($_SESSION['numberofrating'])) { ?>
+										<p style="margin-bottom: 10px;color:#ff8d1b;">
+											<?php
+												$number = $_SESSION['numberofrating'];
+												if ($number > 1) echo $number . ' users'; else echo '1 user';
+											?>
+											rated this movie
+										</p>
+										<?php } ?>
 
 										<?php if (isset($_SESSION['last_rating']) AND $_SESSION['last_rating'] != 'NA') { $rating = $_SESSION['last_rating']; ?>
 

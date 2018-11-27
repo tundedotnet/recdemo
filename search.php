@@ -105,7 +105,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			echo "<br/>";
 
 			echo "SQL: <br/>";
-			$sql = "   SELECT movies.movieid as movieid, rtitle, yearreleased, AVG(rating) AS rating FROM movies JOIN ratings ON movies.movieid=ratings.movieid WHERE rtitle LIKE '%keyword%' GROUP BY movieid ORDER BY rating DESC, rtitle ASC LIMIT 'start_from', 'limit'";
+			$sql = "   SELECT movies.movieid as movieid, rtitle, yearreleased, AVG(rating) AS rating FROM movies LEFT JOIN ratings ON movies.movieid=ratings.movieid WHERE rtitle LIKE '%keyword%' GROUP BY movieid ORDER BY rating DESC, rtitle ASC LIMIT 'start_from', 'limit'";
 
 			echo "$sql <br/>";
 
@@ -229,7 +229,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<div class="mid-2">
 										<p><?php echo $row['yearreleased']; ?></p>
 										<div class="block-stars">
-											<?php $rating = $row['rating']; ?>
+											<?php $rating = $row['rating']; 
+												if ($rating == 0 OR $rating =="") 
+													$rating = 3;
+											?>
 											<?php include('rating.php'); ?>
 										</div>
 										<div class="clearfix"></div>

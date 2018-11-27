@@ -77,7 +77,7 @@
 	$opts = array('http' =>
 	    array(
 	        'method'  => 'POST',
-	        'header'  => 'Content-type: application/x-www-form-urlencoded',
+	        'header'  => 'Content-type: application/json',
 	        'content' => $postdata
 	    )
 	);
