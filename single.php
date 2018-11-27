@@ -25,6 +25,13 @@
 
 	$movies = new Movies();
 	$key = $_GET['ref'];
+
+	if (isset($_GET['debug'])) {
+		$_SESSION['debug'] = 1;
+	}
+	else {
+		unset($_SESSION['debug']);
+	}
 	
 ?>
 <!--
@@ -131,6 +138,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 			echo "$sql <br/>";
 
+			echo "API: <br/>";
+				$api = "  Request - Array ( [http] => Array ( [method] => POST [header] => Content-type: application/x-www-form-urlencoded [content] => {'user_id':'N9D266D7254B1471FB01CB17D3806FC25','K':11,'account_api_key':'abdRDXE4I6XhRvKbg4S29DR2di97RNOC','account_id':'1','category':[2,3,4]} ) ) <br/>";
+				$api .= "   Response - https://deep-rec.com/api/recommend <br/><br/>";
+				$api .= "   Request (Rating) - Array ( [http] => Array ( [method] => POST [header] => Content-type: application/x-www-form-urlencoded [content] => {'ratings':[{'user_id':'4','item_id':'2899','score':2}],'account_api_key':'abdRDXE4I6XhRvKbg4S29DR2di97RNOC','account_id':'1'} ) ) <br/>";
+				$api .= "   Response (Rating) - https://deep-rec.com/api/rating";
+				echo " $api <br/>";
+
+
 			print("</pre>");
 		}
 	?>
@@ -212,6 +227,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<span style="font-weight: bold;"> Genres: </span>
 										<?php echo str_replace('|', ' | ', $movie['genres']); ?>
 									</p>
+
+
+									<?php if(isset($_SESSION['numberofrating'])) { ?>
+									<p style="margin-bottom: 10px;color:#ff8d1b;">
+										<?php
+											$number = $_SESSION['numberofrating'];
+											if ($number > 1) echo $number . ' users'; else echo '1 user';
+										?>
+										rated this movie
+									</p>
+								<?php } ?>
+
 
 									<p style="margin-bottom: 10px;">
 										<!-- <span style="font-weight: bold;">Average Rating: </span> -->
@@ -521,9 +548,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<a href="single.php?ref=<?php echo $key; ?>" class="title"><?php echo $movie[0]; ?></a>
 								<p class="author"><a href="#" class="author"><?php echo $movie[1]; ?></a></p>
 								<p class="views"><?php echo str_replace("|", " | ", $movie[3]); ?></p>
-								<p class="author"><a href="#" class="author">
-									<?php if ($movie[5] > 1) echo $movie[5] . ' users'; else echo '1 user'; ?> rated this movie</a>
-								</p>
 								<p class="author"><a href="#" class="author"><?php include('rating.php'); ?></a></p>
 							</div>
 							<div class="clearfix"> </div>

@@ -29,6 +29,13 @@
 	$files = array_diff(scandir('imdb_scaled_images/'), array('.', '..'));
 
 	$_SESSION['cur_page'] = 'index';
+
+	if (isset($_GET['debug'])) {
+		$_SESSION['debug'] = 1;
+	}
+	else {
+		unset($_SESSION['debug']);
+	}
 ?>
 
 <!--
@@ -123,12 +130,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				echo "<br/>";
 
 				echo "SQL: <br/>";
-				$sql = "Recommended - SELECT movieid, rtitle, yearreleased, genres FROM movies WHERE movieid IN (comma_separated_moviesIDs_from_API') <br/>";
-				$sql .= "Top_viewed - SELECT ratings.movieid AS movieid, rtitle, yearreleased, COUNT(rating) AS rcount, AVG(rating) AS average FROM ratings INNER JOIN movies ON ratings.movieid=movies.movieid GROUP BY movieid ORDER BY rcount DESC, average DESC, yearreleased DESC, title ASC LIMIT 12 <br/>";
-				$sql .= "Top_rated - SELECT ratings.movieid AS movieid, rtitle, yearreleased, COUNT(rating) AS rcount, AVG(rating) as average FROM ratings INNER JOIN movies ON ratings.movieid=movies.movieid GROUP BY movieid ORDER BY average DESC, rcount DESC, yearreleased DESC, title ASC LIMIT 12 <br/>";
-				$sql .= "Top_Recent - SELECT ratings.movieid AS movieid, rtitle, yearreleased, COUNT(rating) AS rcount, AVG(rating) as average FROM ratings INNER JOIN movies ON ratings.movieid=movies.movieid GROUP BY movieid ORDER BY yearreleased DESC, average DESC, rcount DESC, title ASC LIMIT 12";
+				$sql = "   Recommended - SELECT movieid, rtitle, yearreleased, genres FROM movies WHERE movieid IN (comma_separated_moviesIDs_from_API') <br/>";
+				$sql .= "   Top_viewed - SELECT ratings.movieid AS movieid, rtitle, yearreleased, COUNT(rating) AS rcount, AVG(rating) AS average FROM ratings INNER JOIN movies ON ratings.movieid=movies.movieid GROUP BY movieid ORDER BY rcount DESC, average DESC, yearreleased DESC, title ASC LIMIT 12 <br/>";
+				$sql .= "   Top_rated - SELECT ratings.movieid AS movieid, rtitle, yearreleased, COUNT(rating) AS rcount, AVG(rating) as average FROM ratings INNER JOIN movies ON ratings.movieid=movies.movieid GROUP BY movieid ORDER BY average DESC, rcount DESC, yearreleased DESC, title ASC LIMIT 12 <br/>";
+				$sql .= "   Top_Recent - SELECT ratings.movieid AS movieid, rtitle, yearreleased, COUNT(rating) AS rcount, AVG(rating) as average FROM ratings INNER JOIN movies ON ratings.movieid=movies.movieid GROUP BY movieid ORDER BY yearreleased DESC, average DESC, rcount DESC, title ASC LIMIT 12";
 
 				echo "$sql <br/>";
+
+				echo "API: <br/>";
+				$api = "  Request - Array ( [http] => Array ( [method] => POST [header] => Content-type: application/x-www-form-urlencoded[content] => {'user_id':'4','K':12,'account_api_key':'abdRDXE4I6XhRvKbg4S29DR2di97RNOC','account_id':'1'} ) ) <br/>";
+				$api .= "   Response - https://deep-rec.com/api/recommend";
+				echo " $api <br/>";
 
 				print("</pre>");
 			}

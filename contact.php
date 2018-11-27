@@ -3,6 +3,13 @@
 	ini_set('default_charset', 'utf-8');
 
 	$_SESSION['cur_page'] = 'contact';
+
+	if (isset($_GET['debug'])) {
+		$_SESSION['debug'] = 1;
+	}
+	else {
+		unset($_SESSION['debug']);
+	}
 ?>
 <!--
 author: W3layouts
@@ -67,7 +74,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				echo "<br/>";
 
 				echo "SQL: <br/>";
-				$sql = "N/A";
+				$sql = "   N/A";
 
 				echo "$sql <br/>";
 

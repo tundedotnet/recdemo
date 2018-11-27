@@ -6,6 +6,13 @@
 	$files = array_diff(scandir('imdb_scaled_images/'), array('.', '..'));
 
 	require_once ('./class/movies.php');
+
+	if (isset($_GET['debug'])) {
+		$_SESSION['debug'] = 1;
+	}
+	else {
+		unset($_SESSION['debug']);
+	}
 ?>
 <!--
 author: W3layouts
@@ -98,7 +105,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			echo "<br/>";
 
 			echo "SQL: <br/>";
-			$sql = "SELECT movies.movieid as movieid, rtitle, yearreleased, AVG(rating) AS rating FROM movies JOIN ratings ON movies.movieid=ratings.movieid WHERE rtitle LIKE '%keyword%' GROUP BY movieid ORDER BY rating DESC, rtitle ASC LIMIT 'start_from', 'limit'";
+			$sql = "   SELECT movies.movieid as movieid, rtitle, yearreleased, AVG(rating) AS rating FROM movies JOIN ratings ON movies.movieid=ratings.movieid WHERE rtitle LIKE '%keyword%' GROUP BY movieid ORDER BY rating DESC, rtitle ASC LIMIT 'start_from', 'limit'";
 
 			echo "$sql <br/>";
 

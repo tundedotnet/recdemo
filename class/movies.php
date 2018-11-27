@@ -350,12 +350,19 @@ class Movies
 				$rating = $data['rating'];
 				$_SESSION['last_rating'] = $rating;
 
+				$userid = $_SESSION['userid'];
+				$_SESSION['numberofrating'] = count_rating($conn, $movieid, $userid);
+
 				/*print "<pre>";
 				print($rating);
 				print "</pre>";*/
 			}
 			else
+			{
 				$_SESSION['last_rating'] = 'NA';
+				$_SESSION['numberofrating'] = 0;
+			}
+
 		}
 		
 
@@ -467,6 +474,22 @@ class Movies
 		$_SESSION['total_records'] = $total_records;
 
 		return $total_records;
+	}
+
+	function count_rating($conn, $movieid, $userid) {
+		
+		$sql = "SELECT COUNT(rating) as total FROM ratings WHERE movieid=$movieid AND userid=$userid";  
+		$result=mysqli_query($conn, $sql);
+		$data=mysqli_fetch_assoc($result);
+
+		if (mysqli_num_rows($data)!=0)
+		{
+			$total_records = $data['total'];
+
+			return $total_records;
+		}
+		else
+			return 0;
 	}
 
 	function count_fetch_movies()
