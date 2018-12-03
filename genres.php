@@ -179,7 +179,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="w3l-medile-movies-grids">
 
 			<!-- /movie-browse-agile -->
-			
+			<input type="hidden" name="debug" id="debug" value="<?php if(isset($_GET['debug'])) echo 'debug'; ?>">
 			<div class="movie-browse-agile">
 				     <!--/browse-agile-w3ls -->
 				<div class="browse-agile-w3ls general-w3ls">
@@ -211,7 +211,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							?>
 
 							<div class="col-md-2 w3l-movie-gride-agile">
-								<a href="single.php?ref=<?php echo $row['movieid']; ?>" class="hvr-shutter-out-horizontal">
+								<a href="single.php?ref=<?php echo $row['movieid']; ?><?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" class="hvr-shutter-out-horizontal">
 									<!-- width:182px; height:268px; -->
 									<img style="" src="<?php echo $imgfile; ?>" title="<?php echo $row['rtitle'] ?>" class="img-responsive" alt=" " />
 									<!-- <div class="blank"> <?php // echo $row['rtitle'] ?> </div> -->
@@ -219,7 +219,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								</a>
 								<div class="mid-1">
 									<div class="w3l-movie-text"  style="min-height: 37px;">
-										<h6><a href="single.php?ref=<?php echo $row['movieid']; ?>"><?php echo $row['rtitle']; ?></a></h6>							
+										<h6><a href="single.php?ref=<?php echo $row['movieid']; ?><?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>"><?php echo $row['rtitle']; ?></a></h6>							
 									</div>
 									<div class="mid-2">
 										<p><?php echo $row['yearreleased']; ?></p>
@@ -275,6 +275,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				        	event.preventDefault();
 
 				        	var ref = document.getElementById('ref').value
+				        	var debug = document.getElementById('debug').value
 
 				        	var queryData = 'ref=' + ref + '&page=' + page;
 				        	// alert(queryData);
@@ -298,8 +299,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					            		$("div#browse-inner").empty();
 						                $.each(response, function (i, item) {
 
+						                	var url;
+						                	if (debug == 'debug') {
+						                		url = 'single.php?ref=' + item.movieid + '&debug=1';
+						                	} else {
+						                		url = 'single.php?ref=' + item.movieid;
+						                	}
+
 						                	var imgname = item.movieid + "_imdb.png";
-						                	var newItem = "<div class='col-md-2 w3l-movie-gride-agile'> <a href='single.php?ref=" + item.movieid + "' class='hvr-shutter-out-horizontal'> <img style='' src='imdb_scaled_images/" + imgname + "' title='" + item.rtitle +"' class='img-responsive' alt=' ' /> </a> <div class='mid-1'> <div class='w3l-movie-text'  style='min-height: 37px;'> <h6><a href='single.php?ref=" + item.movieid + "'>" + item.rtitle + "</a></h6> </div> <div class='mid-2'> <p>" + item.yearreleased + "</p> <div class='block-stars'>" + rate(item.rating) + "</div> <div class='clearfix'></div> </div>	</div> </div>";
+						                	var newItem = "<div class='col-md-2 w3l-movie-gride-agile'> <a href='" + url + "' class='hvr-shutter-out-horizontal'> <img style='' src='imdb_scaled_images/" + imgname + "' title='" + item.rtitle +"' class='img-responsive' alt=' ' /> </a> <div class='mid-1'> <div class='w3l-movie-text'  style='min-height: 37px;'> <h6><a href='" + url + "'>" + item.rtitle + "</a></h6> </div> <div class='mid-2'> <p>" + item.yearreleased + "</p> <div class='block-stars'>" + rate(item.rating) + "</div> <div class='clearfix'></div> </div>	</div> </div>";
 
 						                	// console.log(newItem)
 

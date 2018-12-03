@@ -329,7 +329,7 @@ else {
 
 
 // createotherimages();
-scaleimage();
+// scaleimage();
 // scaleimage_for_details(); // VERY BAD IMAGE
 
 ?>

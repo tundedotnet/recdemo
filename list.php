@@ -204,10 +204,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 		echo "$sql <br/>";
 
+		/*if (isset($_SESSION['accesstag']) AND $_SESSION['accesstag'] == 'OK')
+				$userid = $_SESSION['userid'];
+			else 
+				$userid = $_SESSION['guestid'];
+			$response = $_SESSION['response'];
+
 		echo "API: <br/>";
-				$api = "  Request - Array ( [http] => Array ( [method] => POST [header] => Content-type: application/x-www-form-urlencoded[content] => {'user_id':'4','K':12,'account_api_key':'abdRDXE4I6XhRvKbg4S29DR2di97RNOC','account_id':'1'} ) ) <br/>";
-				$api .= "   Response - https://deep-rec.com/api/recommend";
-				echo " $api <br/>";
+				$api = "  Request - Array ( [http] => Array ( [method] => POST [header] => Content-type: application/x-www-form-urlencoded[content] => {'user_id':'$userid','K':12,'account_api_key':'abdRDXE4I6XhRvKbg4S29DR2di97RNOC','account_id':'1'} ) ) <br/>";
+				$api .= "   Response - $response";
+				echo " $api <br/>";*/
 
 
 		print("</pre>");
@@ -259,64 +265,65 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					  <li class="active">List</li>
 					</ol>
 				</div>
-				<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+				<input type="hidden" name="debug" id="debug" value="<?php if(isset($_GET['debug'])) echo 'debug'; ?>">
+				<div class="bs-example bs-example-tabs" role="tabpanel"http://localhost/deeprecdemo/single.php?ref=2031 data-example-id="togglable-tabs">
 						<ul id="myTab" class="nav nav-tabs" role="tablist">
-							<!-- <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">0 - 9</a></li> -->
-							<li role="presentation" <?php if(!isset($_GET['ref'])) echo "class='active'"; ?> ><a style="font-weight: bold" href="list.php?" aria-controls="a">ALL</a></li>
+							<!-- <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="home" aria-expanded="true">0 - 9</a></li> -->
+							<li role="presentation" <?php if(!isset($_GET['ref'])) echo "class='active'"; ?> ><a style="font-weight: bold" href="list.php<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?><?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="a">ALL</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'digit') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=digit" aria-controls="a">#</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'digit') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=digit<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="a">#</a></li>
 
-							<li role="presentation"  <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'a') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=a" aria-controls="a">A</a></li>
+							<li role="presentation"  <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'a') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=a<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="a">A</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'b') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=b" aria-controls="b">B</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'b') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=b<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="b">B</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'c') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=c" aria-controls="c">C</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'c') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=c<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="c">C</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'd') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=d" aria-controls="d">D</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'd') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=d<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="d">D</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'e') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=e" aria-controls="e">E</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'e') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=e<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="e">E</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'f') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=f" aria-controls="f">F</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'f') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=f<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="f">F</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'g') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=g" aria-controls="g">G</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'g') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=g<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="g">G</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'h') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=h" aria-controls="h">H</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'h') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=h<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="h">H</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'i') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=i" aria-controls="i">I</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'i') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=i<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="i">I</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'j') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=j" aria-controls="j">J</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'j') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=j<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="j">J</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'k') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=k" aria-controls="k">K</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'k') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=k<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="k">K</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'l') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=l" aria-controls="l">L</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'l') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=l<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="l">L</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'm') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=m" aria-controls="m">M</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'm') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=m<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="m">M</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'n') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=n" aria-controls="n">N</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'n') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=n<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="n">N</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'o') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=o" aria-controls="o">O</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'o') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=o<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="o">O</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'p') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=p" aria-controls="p">P</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'p') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=p<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="p">P</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'q') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=q" aria-controls="q">Q</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'q') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=q<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="q">Q</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'r') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=r" aria-controls="r">R</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'r') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=r<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="r">R</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 's') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=s" aria-controls="s">S</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 's') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=s<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="s">S</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 't') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=t" aria-controls="t">T</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 't') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=t<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="t">T</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'u') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=u" aria-controls="u">U</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'u') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=u<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="u">U</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'v') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=v" aria-controls="v">V</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'v') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=v<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="v">V</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'w') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=w" aria-controls="w">W</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'w') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=w<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="w">W</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'x') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=x" aria-controls="x">X</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'x') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=x<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="x">X</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'y') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=y" aria-controls="y">Y</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'y') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=y<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="y">Y</a></li>
 
-							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'z') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=z" aria-controls="z">Z</a></li>
+							<li role="presentation" <?php if(isset($_GET['ref']) AND $_GET['ref'] == 'z') echo "class='active'"; ?> ><a style="font-weight: bold"  href="list.php?ref=z<?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" aria-controls="z">Z</a></li>
 						</ul>
 						
 						<div id="myTabContent" class="tab-content">
@@ -356,7 +363,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										  <tr>
 											<td><?php echo $i; ?></td>
 											<?php $url = "single.php?ref=" . $movie['movieid']; ?>
-											<td class="w3-list-img"> <a href="<?php echo $url; ?>">
+											<td class="w3-list-img"> <a href="<?php echo $url; ?><?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>">
 												<!-- width:47px; height:102px; -->
 												<img style="" src="<?php echo $imgfile; ?>" alt="" />
 												<!-- <div class="blank"> <?php // echo $movie['rtitle'] ?> </div> -->
@@ -414,6 +421,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				        	// alert(page);
 
 				        	var ref = document.getElementById('ref').value
+				        	var debug = document.getElementById('debug').value
 
 				        	var queryData = 'ref=' + ref + '&page=' + page;
 
@@ -443,9 +451,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					            		
 						                $.each(response, function (i, item) {
 
+						                	var url;
+						                	if (debug == 'debug') {
+						                		url = 'single.php?ref=' + item.movieid + '&debug=1';
+						                	} else {
+						                		url = 'single.php?ref=' + item.movieid;
+						                	}
+
 						                	var imgname = item.movieid + "_imdb.png";
 
-						                	var newItem = "<tr> <td>" + start_from + "</td> <td class='w3-list-img'><a href='single.php?ref=" + item.movieid + "'><img style='' src='imdb_scaled_images/" + imgname + "' alt='' /><span>" + item.rtitle + "</span></a></td> <td>" + item.genres + "</td> <td>" + item.director + "</td> <td>" + item.language + "</td> <td>" + item.country + "</td> <td>" + item.yearreleased + "</td> <td>" + rate(item.average) + "</td> </tr>";
+						                	var newItem = "<tr> <td>" + start_from + "</td> <td class='w3-list-img'><a href='" + url + "'><img style='' src='imdb_scaled_images/" + imgname + "' alt='' /><span>" + item.rtitle + "</span></a></td> <td>" + item.genres + "</td> <td>" + item.director + "</td> <td>" + item.language + "</td> <td>" + item.country + "</td> <td>" + item.yearreleased + "</td> <td>" + rate(item.average) + "</td> </tr>";
 
 						                	// console.log(newItem)
 
