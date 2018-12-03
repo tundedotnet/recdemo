@@ -547,10 +547,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="single-right-grids">
 							<div class="col-md-4 single-right-grid-left">
 								<!-- width:101px; height:148px; -->
-								<a href="single.php?ref=<?php echo $key; ?>"><img style="" src="<?php echo $imgfile; ?>" alt="" /></a>
+								<a href="single.php?ref=<?php echo $key; ?><?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>"><img style="" src="<?php echo $imgfile; ?>" alt="" /></a>
 							</div>
 							<div class="col-md-8 single-right-grid-right">
-								<a href="single.php?ref=<?php echo $key; ?>" class="title"><?php echo $movie[0]; ?></a>
+								<a href="single.php?ref=<?php echo $key; ?><?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" class="title"><?php echo $movie[0]; ?></a>
 								<p class="author"><a href="#" class="author"><?php echo $movie[1]; ?></a></p>
 								<p class="views"><?php echo str_replace("|", " | ", $movie[3]); ?></p>
 								<p class="author"><a href="#" class="author"><?php include('rating.php'); ?></a></p>
