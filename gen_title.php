@@ -83,6 +83,6 @@ $imageScaled = imagescale($image, 300, 442);
 imagepng($imageScaled, "blankscaled.png", 9);
 // Free up memory*/
 
-createimage();
+// createimage();
 
 ?>

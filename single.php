@@ -24,7 +24,9 @@
 
 
 	$movies = new Movies();
+
 	$key = $_GET['ref'];
+	$toprecommended = $movies->get_related_recommendations($key, $userid);
 
 	if (isset($_GET['debug'])) {
 		$_SESSION['debug'] = 1;
@@ -138,27 +140,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 			echo "$sql <br/>";
 
+			if (isset($_SESSION['accesstag']) AND $_SESSION['accesstag'] == 'OK')
+				$userid = $_SESSION['userid'];
+			else 
+				$userid = $_SESSION['guestid'];
+			// $movieid = $_GET['movieid'];
+			$response = $_SESSION['response'];
+			$catIDs = $_SESSION['catIDs'];
+
 			echo "API: <br/>";
-				$api = "  Request - Array ( [http] => Array ( [method] => POST [header] => Content-type: application/json [content] => {'user_id':'N9D266D7254B1471FB01CB17D3806FC25','K':11,'account_api_key':'abdRDXE4I6XhRvKbg4S29DR2di97RNOC','account_id':'1','category':[2,3,4]} ) ) <br/>";
-				$api .= "   Response - Array
-(
-    [923] => 14.4862385
-    [2357] => 14.208625
-    [3711] => 14.083873
-    [1044] => 14.077532
-    [3897] => 14.015639
-    [393] => 13.766373
-    [770] => 13.73549
-    [823] => 13.702568
-    [3788] => 13.701855
-    [3679] => 13.627493
-    [278] => 13.538572
-) <br/><br/>";
-				$api .= "   Request (Rating) - Array ( [http] => Array ( [method] => POST [header] => Content-type: application/json [content] => {'ratings':[{'user_id':'4','item_id':'8679','score':2}],'account_api_key':'abdRDXE4I6XhRvKbg4S29DR2di97RNOC','account_id':'1'} ) ) <br/>";
+				$api = "  Request - Array ( [http] => Array ( [method] => POST [header] => Content-type: application/json [content] => {'user_id':'$userid','K':11,'account_api_key':'abdRDXE4I6XhRvKbg4S29DR2di97RNOC','account_id':'1','category':$catIDs} ) ) <br/>";
+				$api .= "   Response - $response"; // <br/><br/>";
+				/*$api .= "   Request (Rating) - Array ( [http] => Array ( [method] => POST [header] => Content-type: application/json [content] => {'ratings':[{'user_id':'4','item_id':'8679','score':2}],'account_api_key':'abdRDXE4I6XhRvKbg4S29DR2di97RNOC','account_id':'1'} ) ) <br/>";
 				$api .= "   Response (Rating) - Array
-(
-    [code] => OK
-)";
+				(
+				    [code] => OK
+				)";*/
 				echo " $api <br/>";
 
 
@@ -233,9 +230,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<!--  -->
 							<div style="min-width: 95%;"> 
 
-								<img style="width:40%; height:442px; margin-right: 20px; float: left;" src="<?php echo $imgfile; ?>" alt="" /> 
-
-								<div style="width:48%; height:442px; float:left; text-align:justify; font-size:1.2em; position:relative;">
+								<img style="width:40%; min-height:25%; margin-right: 20px; float: left;" src="<?php echo $imgfile; ?>" alt="" /> 
+								<!-- font-size:1.15vw -->
+								<div style="width:48%; min-height:25%; float:left; text-align:justify; font-size:1.2em; position:relative;">
 
 									<h3 style="color: #974908;"><?php echo $movie['rtitle'];  ?></h3> <br/>
 
@@ -279,8 +276,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<span style="font-weight: bold;">Year of Released: </span>
 										<?php if ($movie['yearreleased']!='' AND $movie['yearreleased']!='n/A') echo $movie['yearreleased']; else echo 'N/A'; ?>
 									</p>
-									
-									<br/>
 
 								</div>
 
@@ -530,8 +525,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="single-grid-right">
 
 						<?php
-							$toprecommended = $movies->get_related_recommendations($_GET['ref'], $userid);
-
+							
 							$i = 1; # for selecting image for cover
 							if(is_array($toprecommended)) {
 								foreach (array_keys($toprecommended) as $key) {

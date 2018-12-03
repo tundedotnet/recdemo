@@ -44,9 +44,11 @@ class Movies
 
 		$context  = stream_context_create($opts);
 		$result = file_get_contents($url, false, $context);
+		$_SESSION['response'] = $result;
 
 		$response = json_decode($result, true);
 		$toprec = $response['recommend']; # RECOMMENDED MOVIE ID ARRANGED IN DESCENDING ORDER OF MOVIE RATING
+
 		/*print "<pre>";
 		echo print_r($toprec);
 		print "</pre>";*/
@@ -107,6 +109,7 @@ class Movies
 
 		$context  = stream_context_create($opts);
 		$result = file_get_contents($url, false, $context);
+		$_SESSION['response'] = $result;
 
 		$response = json_decode($result, true);
 		$toprec = $response['recommend']; # RECOMMENDED MOVIE ID ARRANGED IN DESCENDING ORDER OF MOVIE RATING
@@ -224,6 +227,8 @@ class Movies
 			"category" => $intCartID
 		);
 
+		$_SESSION['catIDs'] = json_encode($intCartID);
+
 		$postdata = json_encode($fields);
 		/*print "<pre>";
 		echo print_r($postdata);
@@ -239,6 +244,7 @@ class Movies
 
 		$context  = stream_context_create($opts);
 		$result = file_get_contents($url, false, $context);
+		$_SESSION['response'] = $result;
 
 		$response = json_decode($result, true);
 		$toprec = $response['recommend']; # RECOMMENDED MOVIE ID ARRANGED IN DESCENDING ORDER OF MOVIE RATING

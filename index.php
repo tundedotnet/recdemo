@@ -138,22 +138,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				echo "$sql <br/>";
 
 				echo "API: <br/>";
-				$api = "  Request - Array ( [http] => Array ( [method] => POST [header] => Content-type: application/json [content] => {'user_id':'4','K':12,'account_api_key':'abdRDXE4I6XhRvKbg4S29DR2di97RNOC','account_id':'1'} ) ) <br/>";
-				$api .= "   Response - Array
-(
-    [923] => 14.476547
-    [2357] => 14.190623
-    [3711] => 14.069821
-    [1044] => 14.056301
-    [3897] => 14.007052
-    [393] => 13.753808
-    [770] => 13.724399
-    [3788] => 13.689966
-    [823] => 13.688637
-    [3679] => 13.630999
-    [278] => 13.534167
-    [1307] => 13.502385
-)";
+
+				if (isset($_SESSION['accesstag']) AND $_SESSION['accesstag'] == 'OK')
+					$userid = $_SESSION['userid'];
+				else 
+					$userid = $_SESSION['guestid'];
+				$response = $_SESSION['response'];
+
+				$api = "  Request - Array ( [http] => Array ( [method] => POST [header] => Content-type: application/json [content] => {'user_id':'$userid','K':'12','account_api_key':'abdRDXE4I6XhRvKbg4S29DR2di97RNOC','account_id':'1'} ) ) <br/>";
+				$api .= "   Response - $response";
 				echo " $api <br/>";
 
 				print("</pre>");
@@ -259,14 +252,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 								<div class="col-md-2 w3l-movie-gride-agile">
 									<?php $url = "single.php?ref=" . $key; ?>
-									<a href="<?php echo $url; ?>" class="hvr-shutter-out-horizontal">
+									<a href="<?php echo $url; ?><?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" class="hvr-shutter-out-horizontal">
 										<!-- width:175px; height:258px; -->
 										<img style="" src="<?php echo $imgfile; ?>" title="<?php echo $movie[0]; ?>" class="img-responsive" alt=" " />
 									</a>
 									<div class="mid-1 agileits_w3layouts_mid_1_home">
 										<div class="w3l-movie-text" style="min-height: 37px;">
 											<!-- <h6><a href="<?php // echo $url; ?>"><?php // echo mb_strimwidth($movie[0], 0, 20, ' ...'); ?></a></h6>	 -->
-											<h6><a href="<?php echo $url; ?>"><?php echo $movie[0]; ?></a></h6>	
+											<h6><a href="<?php echo $url; ?><?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>"><?php echo $movie[0]; ?></a></h6>	
 										</div>
 										<!-- <div class="mid-2 agile_mid_2_home"> -->
 										<div class="mid-2">
@@ -310,7 +303,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							?>
 							<div class="col-md-2 w3l-movie-gride-agile">
 								<?php $url = "single.php?ref=" . $movie['movieid']; ?>
-								<a href="<?php echo $url; ?>" class="hvr-shutter-out-horizontal">
+								<a href="<?php echo $url; ?><?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" class="hvr-shutter-out-horizontal">
 									<!-- width:175px; height:258px; -->
 									<img style="" src="<?php echo $imgfile; ?>" title="<?php echo $movie['rtitle']; ?>" class="img-responsive" alt=" " />
 									<!-- <div class="blank"> <?php // echo $movie['rtitle'] ?> </div> -->
@@ -318,7 +311,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								</a>
 								<div class="mid-1 agileits_w3layouts_mid_1_home">
 									<div class="w3l-movie-text"  style="min-height: 37px;">
-										<h6><a href="<?php echo $url; ?>"><?php echo $movie['rtitle']; ?></a></h6>							
+										<h6><a href="<?php echo $url; ?><?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>"><?php echo $movie['rtitle']; ?></a></h6>							
 									</div>
 									<div class="mid-2"> <!-- agile_mid_2_home -->
 										<p><?php echo $movie['yearreleased']; ?></p>
@@ -365,7 +358,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							?>
 							<div class="col-md-2 w3l-movie-gride-agile">
 								<?php $url = "single.php?ref=" . $movie['movieid']; ?>
-								<a href="<?php echo $url; ?>" class="hvr-shutter-out-horizontal">
+								<a href="<?php echo $url; ?><?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" class="hvr-shutter-out-horizontal">
 									<!-- width:175px; height:258px; -->
 									<img style="" src="<?php echo $imgfile; ?>" title="<?php echo $movie['rtitle']; ?>" class="img-responsive" alt=" " />
 									<!-- <div class="blank"> <?php // echo $movie['rtitle'] ?> </div> -->
@@ -373,7 +366,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								</a>
 								<div class="mid-1 agileits_w3layouts_mid_1_home">
 									<div class="w3l-movie-text"  style="min-height: 37px;">
-										<h6><a href="<?php echo $url; ?>"><?php echo $movie['rtitle']; ?></a></h6>							
+										<h6><a href="<?php echo $url; ?><?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>"><?php echo $movie['rtitle']; ?></a></h6>							
 									</div>
 									<div class="mid-2">
 										<p><?php echo $movie['yearreleased']; ?></p>
@@ -420,7 +413,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							?>
 							<div class="col-md-2 w3l-movie-gride-agile">
 								<?php $url = "single.php?ref=" . $movie['movieid']; ?>
-								<a href="<?php echo $url; ?>" class="hvr-shutter-out-horizontal">
+								<a href="<?php echo $url; ?><?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>" class="hvr-shutter-out-horizontal">
 									<!-- width:175px; height:258px; -->
 									<img style="" src="<?php echo $imgfile; ?>" title="<?php echo $movie['rtitle']; ?>" class="img-responsive" alt=" " />
 									<!-- <div class="blank"> <?php //echo $movie['rtitle'] ?> </div> -->
@@ -429,7 +422,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<div class="mid-1 agileits_w3layouts_mid_1_home">
 									<div class="w3l-movie-text"  style="min-height: 37px;">
 										
-										<h6><a href="<?php echo $url; ?>"><?php echo $movie['rtitle']; ?></a></h6>							
+										<h6><a href="<?php echo $url; ?><?php if(isset($_SESSION['debug'])) echo '&debug=1'; ?>"><?php echo $movie['rtitle']; ?></a></h6>							
 									</div>
 									<div class="mid-2">
 										<p><?php echo $movie['yearreleased']; ?></p>
